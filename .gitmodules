@@ -1,0 +1,3 @@
+[submodule "bencodeParser"]
+	path = bencodeParser
+	url = .\\bencodeParser\\
