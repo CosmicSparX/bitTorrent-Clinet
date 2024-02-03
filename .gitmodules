@@ -1,3 +1,3 @@
 [submodule "bencodeParser"]
 	path = bencodeParser
-	url = .\\bencodeParser\\
+	url = https://github.com/CosmicSparX/bencode-parser
