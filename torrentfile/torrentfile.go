@@ -77,4 +77,5 @@ func main() {
 	}
 
 	fmt.Println(bto.Announce, "hi")
+	fmt.Println(bto.InfoHash)
 }
