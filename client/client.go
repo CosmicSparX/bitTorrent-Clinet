@@ -11,7 +11,7 @@ type Client struct {
 	Choked bool
 }
 
-func New(peer peers.Peer, peerID string, infoHash [20]byte) (*Client, error) {
+func New(peer peers.Peer, peerID, infoHash [20]byte) (*Client, error) {
 	conn, err := net.DialTimeout("tcp", peer.String(), 3*time.Second)
 	if err != nil {
 		return nil, err
