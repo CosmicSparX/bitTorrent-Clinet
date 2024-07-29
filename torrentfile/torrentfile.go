@@ -1,4 +1,4 @@
-package main
+package torrentfile
 
 import (
 	"bytes"
@@ -68,14 +68,4 @@ func toTorrentFile(bto bencodeParser.BencodeTorrent) (TorrentFile, error) {
 		Name:        bto.Info.Name,
 	}
 	return t, nil
-}
-
-func main() {
-	bto, err := Open("D:\\Programming stuff\\Projects\\Go\\bitTorrent Client\\torrentfile\\archlinux-2019.12.01-x86_64.iso.torrent")
-	if err != nil {
-		fmt.Println(err)
-	}
-
-	fmt.Println(bto.Announce, "hi")
-	fmt.Println(bto.InfoHash)
 }
