@@ -11,6 +11,7 @@ import (
 	"time"
 )
 
+// Client is a TCP connection with a peer
 type Client struct {
 	Conn     net.Conn
 	Choked   bool
@@ -84,4 +85,45 @@ func New(peer peers.Peer, peerID, infoHash [20]byte) (*Client, error) {
 		infoHash: infoHash,
 		peerID:   peerID,
 	}, nil
+}
+
+// Read reads and consumes a message from the connection
+func (c *Client) Read() (*message.Message, error) {
+	msg, err := message.Read(c.Conn)
+	return msg, err
+}
+
+// SendRequest sends a Request message to the peer
+func (c *Client) SendRequest(index, begin, length int) error {
+	req := message.FormatRequest(index, begin, length)
+	_, err := c.Conn.Write(req.Serialize())
+	return err
+}
+
+// SendInterested sends an Interested message to the peer
+func (c *Client) SendInterested() error {
+	msg := message.Message{ID: message.MsgInterested}
+	_, err := c.Conn.Write(msg.Serialize())
+	return err
+}
+
+// SendNotInterested sends a NotInterested message to the peer
+func (c *Client) SendNotInterested() error {
+	msg := message.Message{ID: message.MsgNotInterested}
+	_, err := c.Conn.Write(msg.Serialize())
+	return err
+}
+
+// SendUnchoke sends an Unchoke message to the peer
+func (c *Client) SendUnchoke() error {
+	msg := message.Message{ID: message.MsgUnchoke}
+	_, err := c.Conn.Write(msg.Serialize())
+	return err
+}
+
+// SendHave sends a Have message to the peer
+func (c *Client) SendHave(index int) error {
+	msg := message.FormatHave(index)
+	_, err := c.Conn.Write(msg.Serialize())
+	return err
 }
